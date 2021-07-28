@@ -40,3 +40,19 @@ FastAPIが自動でドキュメントを生成してくれる。
 - 代替ドキュメント
   - サーバー実行中に `/redoc` にアクセスする
   - 開発時はたとえば、 http://127.0.0.1:8000/redoc にアクセスする
+
+
+## Model Operation
+
+pydantic.BaseModel を使って、モデルを扱う。BaseModelはデータクラスみたい。
+
+```python
+class Item(BaseModel):
+    name: str
+    price: float
+    is_offer: bool = None
+
+@app.put("/items/{item_id}")
+def update_item(item_id: int, item: Item):
+    return {"item_name": item.name, "item_id": item_id}
+```
